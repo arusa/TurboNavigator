@@ -23,8 +23,12 @@ public class TurboNavigator {
     public let navigationController: UINavigationController
     public let modalNavigationController: UINavigationController
 
-    public func route(_ url: URL) {
-        let options = VisitOptions(action: .advance, response: nil)
+    public func route(_ url: String, action:VisitAction = .advance) {
+        route(URL(string: url)!, action: action)
+    }
+
+    public func route(_ url: URL, action:VisitAction = .advance) {
+        let options = VisitOptions(action: action, response: nil)
         let properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
         let proposal = VisitProposal(url: url, options: options, properties: properties)
         route(proposal)
